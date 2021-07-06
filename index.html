@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Bookshelf</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/style.css">
+  </head>
+
+  <body>
+    <header>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#6C63FF" fill-opacity="0.8" d="M0,32L80,53.3C160,75,320,117,480,133.3C640,149,800,139,960,154.7C1120,171,1280,213,1360,234.7L1440,256L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path></svg>
+      <img src="src/images/undraw_Bookshelves_re_lxoy.svg" class="landing" alt="bookshelves">
+      <div class="content">
+        <div class="text">
+          <p>Makes Your Online <br> LIBRARY</p>
+          <a href="#content"><button>get started</button></a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+
+      <div class="content2" id="content">
+        <h1>Add Books</h1>
+        <img src="src/images/books2.jpg" class="books-image" alt="">
+        <div class="draft">
+          <h2>Title</h2>
+          <input type="text" placeholder="type here" class="title" id="title">
+          <h2>Author</h2>
+          <input type="text" placeholder="type here" class="author" id="author">
+          <h2>Year</h2>
+          <input type="text" placeholder="type here" class="year" id="year">
+        </div>
+        <div class="status">
+          <p>status:</p>
+          <div class="done">
+            <input type="radio" id="done" name="status" value="done">
+            <p>Done</p>
+          </div>
+          <div class="ongoing">
+            <input type="radio" id="ongoing" name="status" value="ongoing">
+            <p>Ongoing</p>
+          </div>
+        </div>
+      
+        <button id="donne">Done</button>
+
+      </div>
+      <div class="hallo">
+          <input type="text" placeholder="Search Title..." id="search" onkeyup="myFunction()">
+          <i class="fas fa-search"></i>
+      </div>
+
+      <div class="popup-done">
+        <i class="far fa-check-circle"></i>
+        <p>Congrats!!</p><p>you have successfully added a book</p>
+        <button class="ok" id="ok">OK</button>
+      </div>
+
+      <div class="failed">
+        <p>OOpss!</p>
+        <p>you failed to add a book. Please fill in all fields</p>
+        <button class="okee" id="ok">OK</button>
+      </div> 
+
+      <div class="line"></div>
+
+      <div class="library" id="library">
+        <div class="completed">
+          <h2>Completed</h2>
+          <div class="books">
+            <table id="books1">
+              <tr class="header">
+                <th>Title</th>
+                <th>Author</th>
+                <th>Year</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="uncompleted">
+          <h2>Uncompleted</h2>
+          <div class="books">
+            <table id="books2">
+              <tr class="header">
+                <th>Title</th>
+                <th>Author</th>
+                <th>Year</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </table>
+          </div>  
+        </div>
+        <div class="deleteAlert" id="deleteAlert">
+          <p>Are you sure to delete book ?</p>
+          <div class="buttonPopup">
+            <button id="no">No</button>
+            <button id="yes">Yes</button>
+          </div>
+        </div>
+
+        <div class="delete-success">
+          <i class="far fa-check-circle"></i>
+          <p>Congratss!!</p>
+          <p>you have successfully deleted the book</p>
+          <button class="okeee">OK</button>
+        </div>
+      </div>
+      <div class="layout-bg"></div>
+    </main>
+
+    <section>
+        <div class="wave wave1"></div>
+        <div class="wave wave2"></div>
+        <div class="wave wave3"></div>
+        <div class="wave wave4"></div>
+    </section>
+    <script src="https://kit.fontawesome.com/7ed264fb83.js" crossorigin="anonymous"></script>
+    <script src="src/script.js"></script>
+  </body>
+</html>

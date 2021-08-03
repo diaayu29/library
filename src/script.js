@@ -233,15 +233,11 @@ const sampah = document.querySelectorAll('.fa-trash')
           document.getElementById('deleteAlert').classList.add('active')
           document.querySelector('.layout-bg').classList.add('active');
           document.getElementById('yes').addEventListener('click', () => {
-            console.log(e.target.id)
+
             if(getDataLocalStorage[j].id == e.target.id) {
-              console.log(e.target.id)
-              console.log(getDataLocalStorage[j].id)
               getDataLocalStorage.splice(j, 1)
-              console.log('terhapus')
               localStorage.setItem('books', JSON.stringify(getDataLocalStorage))
             } else {
-              console.log('tidak')
             }
             document.querySelector('.layout-bg').classList.add('active');
             document.querySelector('.delete-success').classList.add('active');

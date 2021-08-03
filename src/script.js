@@ -5,8 +5,10 @@ const authorData = document.getElementsByClassName('author')[0];
 const completed = document.getElementsByTagName('table');
 const content = document.getElementById('content');
 const popupDetail = document.querySelector('.popup');
-const status = document.getElementsByName('status');
+const statusData = document.getElementsByName('status');
 let storageLibrary = [];
+
+
 
 function newLibrary(id, title, author, year, isComplete) {
   let library = {};
@@ -14,19 +16,19 @@ function newLibrary(id, title, author, year, isComplete) {
   library.title = title;
   library.author = author;
   library.year = year;
-  library.isComplete = isComplete;  
-  return library
-};
+  library.isComplete = isComplete;
+  return library;
+}
 
-const Storage = function() {
+const storage = function() {
   if(typeof (Storage) !== undefined) {
     console.log("Local Storage available"); 
   } else {
     console.log("Upss!! Local Storage unavailable, your data will gone after page reload");
   }
-}
+};
 
-Storage()
+storage();
 
 function deleteBook (el) {
   if(el.classList.contains('fa-trash')) {
@@ -46,76 +48,100 @@ function ChangeStatusUncompleted(e) {
   }
 }
 
-let getDataLocalStorage = JSON.parse(localStorage.getItem('books'))
+let getDataLocalStorage = JSON.parse(localStorage.getItem('books'));
+
+let store = {
+  getBooksData() {
+    let books = [];
+    if(localStorage.getItem('books') === null) {
+      books = [];
+    } else {
+      books = JSON.parse(localStorage.getItem('books'));
+    }
+    return books;
+  },
+  addBooksData(book) {
+    const books = store.getBooksData();
+    books.push(book);
+    
+    localStorage.setItem('books', JSON.stringify(books));
+    return books;
+  }
+};
+
+store.getBooksData();
 
 const checkStatus = {
   addNewBookData : function() {
     let libraryBook = newLibrary(new Date().getTime()+(5*24*60*60*1000), titleData.value, authorData.value, yearData.value, isComplete);
-    return libraryBook
+    return libraryBook;
   },
-  status : function Status() {
+  statusDetail : function Status() {
     const row = document.createElement('tr');
     const td1 = document.createElement('td');
     const td2 = document.createElement('td');
     const td3 = document.createElement('td');
     const td4 = document.createElement('td');
-    const td5 = document.createElement('td')
+    const td5 = document.createElement('td');
     const button = document.createElement('button');
     const trash = document.createElement('i');
-    td1.innerText = `${checkStatus.addNewBookData().title}`
-    td2.innerText = `${checkStatus.addNewBookData().author}`
-    td3.innerText = `${checkStatus.addNewBookData().year}`  
-    trash.className = "fas fa-trash"
-    for(let i = 0; i < status.length; i++) {
+    td1.innerText = `${checkStatus.addNewBookData().title}`;
+    td2.innerText = `${checkStatus.addNewBookData().author}`;
+    td3.innerText = `${checkStatus.addNewBookData().year}`  ;
+    trash.className = "fas fa-trash";
+    for(let i = 0; i < statusData.length; i++) {
       if(isComplete == false) {
-        button.innerText = "uncompleted"
-        button.className = "uncomplete"
-        button.id = "hallo"
-        trash.id = checkStatus.addNewBookData().id
-        completed[1].appendChild(row)
-        row.appendChild(td1)
-        row.appendChild(td2)
-        row.appendChild(td3)
-        row.appendChild(td4)
+        button.innerText = "uncompleted";
+        button.className = "uncomplete";
+        button.id = "hallo";
+        trash.id = checkStatus.addNewBookData().id;
+        completed[1].appendChild(row);
+        row.appendChild(td1);
+        row.appendChild(td2);
+        row.appendChild(td3);
+        row.appendChild(td4);
         td4.appendChild(button);
-        row.appendChild(td5)
+        row.appendChild(td5);
         td5.appendChild(trash);
       } else if (isComplete == true) {
-        button.innerText = "completed"
-        button.className = "complete"
-        button.id = "hallo"
-        trash.id = checkStatus.addNewBookData().id
-        completed[0].appendChild(row)
-        row.appendChild(td1)
-        row.appendChild(td2)
-        row.appendChild(td3)
-        row.appendChild(td4)
+        button.innerText = "completed";
+        button.className = "complete";
+        button.id = "hallo";
+        trash.id = checkStatus.addNewBookData().id;
+        completed[0].appendChild(row);
+        row.appendChild(td1);
+        row.appendChild(td2);
+        row.appendChild(td3);
+        row.appendChild(td4);
         td4.appendChild(button);
-        row.appendChild(td5)
+        row.appendChild(td5);
         td5.appendChild(trash);
       }
     }
   }
-}
+};
 
 function refreshPage(){
   window.location.reload();
 } 
 
 add.addEventListener('click', () => {
-  for(let i = 0; i < status.length; i++) {
-    if(status[i].checked && titleData.value !== "" && yearData.value !== "" && authorData.value !== "") {
-      if(status[i].value === "done") {
-        isComplete = true;
-      } else if(status[i].value === "ongoing") {
-        isComplete = false;
+  for(let i = 0; i < statusData.length; i++) {
+    if(statusData[i].checked && titleData.value !== "" && yearData.value !== "" && authorData.value !== "") {
+      if(statusData[i].value == "done") {
+        isComplete = true
+        store.addBooksData(checkStatus.addNewBookData()); 
+      } else if(statusData[i].value == "ongoing") {
+        isComplete = false
+        store.addBooksData(checkStatus.addNewBookData()); 
       }
-      checkStatus.status()
+      checkStatus.statusDetail();
       storageLibrary.push(checkStatus.addNewBookData());
-      store.addBooksData(checkStatus.addNewBookData())    
     }
   }
 });
+
+
 
 document.querySelector('.okeee').addEventListener('click', () => {
   document.querySelector('.layout-bg').classList.remove('active');
@@ -134,6 +160,7 @@ document.querySelector('#donne').addEventListener('click', () => {
   titleData.value = "";
   yearData.value = "";
   authorData.value = "";
+
 });
 
 document.querySelector('#ok').addEventListener('click',() => {
@@ -231,26 +258,6 @@ const sampah = document.querySelectorAll('.fa-trash')
 }
 
 deleteBook()
-
-let store = {
-  getBooksData() {
-    let books;
-    if(localStorage.getItem('books') === null) {
-      books = [];
-    } else {
-      books = JSON.parse(localStorage.getItem('books'))
-    }
-    return books
-  },
-  addBooksData(book) {
-    const books = store.getBooksData();
-    books.push(book);
-    localStorage.setItem('books', JSON.stringify(books));
-    return books
-  }
-}
-
-store.getBooksData()
 
 document.body.getElementsByClassName('library')[0].addEventListener('click', () => {
   getDataLocalStorage.forEach(() => {
